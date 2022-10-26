@@ -1,0 +1,187 @@
+/* 在css中错误的引用成html的标注方式，会导致css中的样式无法生效*/
+/* 设置基础样式*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* 这部分是设置search的相关信息 */
+/* 设置字体大小、样式、颜色,设置背景图片（有两种方式设置，1、做一个div，使用fix定位放在页面的底层，2、直接设置body的背景色），
+    filter在这里设置的时候，容易将body下所有内容都产生blur效果，所以加上前置进行限定 */
+body {
+    font: 14px/1.5 Arial, Helvetica, sans-serif;
+    color: #444;
+    /* linear-gradien在这里的效果是给背景图增加一个遮罩渐变效果，调整后面的颜色可以调整渐变的效果 */
+    background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0), rgba(0,0,0,0.2)),
+    url(../images/1.jpg) center center no-repeat;   
+    background-size: cover;
+    min-height: 100vh;
+    padding-bottom: 60px;
+    backdrop-filter: blur(4px);
+}
+
+/* 引入iconfont通用css库*/
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+
+/* 设置页面大小结构,在page创建bfc，让内部的内容无法超出页面，问题的原因是search设置上边距，超出了页面 */
+#page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 20px;
+    /*overflow: hidden;*/
+}
+
+/* 先设置为flex布局，再对结构进行调整,调整为垂直居中；设置搜索栏的上边距 */
+#search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+
+}
+
+/* 设置弹性布局 */
+.search-type {
+    display: flex;
+}
+
+/* 设置百度、必应按钮的外观属性 */
+.search-tab {
+    padding: 2px 4px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    margin-right: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    /* 可点击属性*/
+    cursor: pointer;
+}
+
+/* */
+.search-tab.active {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  }
+
+/* 这里增加定位的原因是想让搜索图标放置在搜索框内，设置搜索框的宽度、阴影等属性 */
+.search-input {
+    position: relative;
+    margin-top: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgba(255,255,255, 0.5);
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* 设置搜索图标的定位信息，可以在检查元素处进行微调数值再在css中设置,图标的大小也可以在这进行设置 */
+.search-input .icon {
+    position: absolute;
+    right: 5px;
+    /* top: 8px; */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    cursor: pointer;
+}
+/* 设置搜索框的外观信息*/
+.search-input > input {
+    width: 400px;
+    /* 设置输入文本在输入框内的定位*/
+    padding: 0 20px 0 10px;
+    line-height: 32px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    transition: all .3s;
+    /* 普通的颜色调整是对输入的字的颜色进行修改
+    color: red;*/
+}
+
+/* 通过响应式实现不同屏幕尺寸下搜索框的状态*/
+.search-input > input:focus {
+    width: calc(70vw - 40px);
+    }
+@media (max-width:600px) {
+    .search-input > input:focus {
+        width: 400px;
+    }
+}
+
+/* 这个颜色设置是针对搜索框内的placeholder*/
+.search-input > input::placeholder {
+    color: #999;
+}
+
+/* 这部分是设置websites的相关样式*/
+/* 去掉列表默认显示前面的符号*/
+ul,li {
+    list-style: none;
+}
+
+#websites .item {
+    margin-top: 60px;
+}
+
+/* 对h2即小标题的样式进行设置*/
+#websites .list h2 {
+    color: #fff;
+    font-size: 32px;
+}
+
+/* 对标题下的列表项目进行外观设置(颜色、圆角、填充等） */
+#websites .panel {
+    display: flex;
+    /* 设置换行*/
+    flex-wrap: wrap;
+    background-color: rgba(255,255,255, 0.5);
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 15px;
+    box-shadow: 0 0 0 16px 0 rgba(0,0,0,0.4);
+}
+
+/* 设置不同网址之间的间距*/
+#websites .tag {
+    border-radius: 4px;
+    padding: 2px 16px;
+    margin: 10px 10px;
+}
+
+/* 颜色设置第一种方式，在tag后面再附加上color-，这种方式可以直接控制tag的颜色*
+.color-1 {
+    background-color: #ffbdf2;
+}
+
+.color-2 {
+    background-color: #e2d080;
+}
+.color-3 {
+    background-color: #7977e2;
+}
+.color-4 {
+    background-color: #e474ac;
+}
+.color-5 {
+    background-color: #6ee782;
+}
+*/
+/* 设置颜色的第二种方式，设置循环*/
+#websites .tag:nth-child(4n+1) {
+    background: #ffbdf2;
+  } 
+  
+  #websites .tag:nth-child(4n+2) {
+    background: #e2d080;
+  } 
+  
+  #websites .tag:nth-child(4n+3) {
+    background: #e9a999;
+  }
+  
+  #websites .tag:nth-child(4n+4) {
+    background: #6ee782;
+  }
